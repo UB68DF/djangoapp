@@ -1,0 +1,30 @@
+
+{% extends 'polls/base.html' %}
+
+{% block main_content %}
+
+<h1>{{question.question_text}}</h1>
+
+<ul>
+    <form method="post" action="{% url 'polls:vote' question.id %}">
+        {% csrf_token %}
+
+        {% for choice  in question.choice_set.all %}
+
+            <input type="radio" name="choice" id="choice{{forloop.id}}" value="{{choice.id}}" >
+            <label for="choice{{forloop.id}}">{{choice.choice_text}}</label><br>
+
+
+        {% endfor %}
+        <input type="submit" class="btn btn-outline-success my-2 my-sm-0" name="submit" value="VOTE">
+        <a href="{% url 'polls:index' %}"><input type="button" class="btn btn-outline-danger my-2 my-sm-0" name="submit"
+               value="Cancel" ></a>
+        <br>
+
+
+    </form>
+
+</ul>
+
+{% endblock %}
+
